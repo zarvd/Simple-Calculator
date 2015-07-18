@@ -8,10 +8,10 @@ namespace calculator {
     struct BigInt {
         const static int precision = 100;
         BigInt();
-        explicit BigInt(std::string& str);
+        explicit BigInt(const std::string& str);
         std::string toStr();
 
-        BigInt& operator=(std::string&);
+        BigInt& operator=(const std::string&);
         BigInt& operator=(BigInt&);
         BigInt operator+(BigInt&);
         BigInt operator-(BigInt&);
@@ -20,7 +20,7 @@ namespace calculator {
     private:
         unsigned digit;
         std::array<unsigned, precision> value;
-        void toValue(std::string&);
+        void toValue(const std::string&);
     };
 }
 
