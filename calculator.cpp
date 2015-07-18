@@ -1,5 +1,5 @@
 #include "calculator.hpp"
-#include "parser.hpp"
+#include "helper.hpp"
 
 #include <iostream>
 
@@ -27,15 +27,15 @@ namespace calculator {
      * Output result
      */
     void Calculator::printResult() {
-        // std::cout << "Result: " << result.toStr() << std::endl;
+        std::cout << "Result: " << result.toStr() << std::endl;
     }
 
     /**
      * Parse command
      */
     void Calculator::parse() {
-        parser::removeAllSpace(command);
-        if( ! parser::isAllDigit(command)) {
+        helper::removeAllSpace(command);
+        if( ! helper::isAllDigit(command)) {
             isExit = true;
         }
     }

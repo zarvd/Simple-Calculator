@@ -12,13 +12,14 @@ namespace calculator {
         std::string toStr();
 
         BigInt& operator=(std::string&);
-        std::string& operator+(BigInt&);
-        std::string& operator-(BigInt&);
-        std::string& operator*(BigInt&);
-        std::string& operator/(BigInt&);
+        BigInt& operator=(BigInt&);
+        BigInt operator+(BigInt&);
+        BigInt operator-(BigInt&);
+        BigInt operator*(BigInt&);
+        BigInt operator/(BigInt&);
     private:
         unsigned digit;
-        std::array<int, precision> value;
+        std::array<unsigned, precision> value;
         void toValue(std::string&);
     };
 }

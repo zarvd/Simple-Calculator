@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <string>
 
-namespace parser {
+namespace helper {
 
     /**
      * Remove all whitespace from std::string
