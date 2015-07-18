@@ -11,6 +11,7 @@ namespace calculator {
      */
     BigInt::BigInt() : value {} {
         digit = 1;
+        negative = false;
     }
 
     /**
@@ -18,6 +19,7 @@ namespace calculator {
      */
     BigInt::BigInt(const std::string& str) : value {} {
         digit = 1;
+        negative = false;
         toValue(str);
     }
 
@@ -26,7 +28,7 @@ namespace calculator {
         return *this;
     }
 
-    BigInt BigInt::operator+(BigInt& that) {
+    BigInt BigInt::operator+(const BigInt& that) const {
         BigInt sum;
         unsigned idx, carry;
         carry = 0;
@@ -40,6 +42,12 @@ namespace calculator {
             sum.digit = idx;
         }
         return sum;
+    }
+
+    BigInt BigInt::operator-(const BigInt& that) const {
+        BigInt difference;
+        unsigned idx, borrow;
+        return difference;
     }
 
     /**

@@ -13,12 +13,14 @@ namespace calculator {
 
         BigInt& operator=(const std::string&);
         BigInt& operator=(BigInt&);
-        BigInt operator+(BigInt&);
-        BigInt operator-(BigInt&);
-        BigInt operator*(BigInt&);
-        BigInt operator/(BigInt&);
+        BigInt operator+(const BigInt&) const;
+        BigInt operator-(const BigInt&) const;
+        BigInt operator*(const BigInt&) const;
+        BigInt operator/(const BigInt&) const;
+        friend std::ostream& operator<<(std::ostream& stream, const BigInt& that);
     private:
         unsigned digit;
+        bool negative;
         std::array<unsigned, precision> value;
         void toValue(const std::string&);
     };
