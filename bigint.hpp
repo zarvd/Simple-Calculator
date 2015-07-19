@@ -17,6 +17,9 @@ namespace calculator {
         BigInt operator-(const BigInt&) const;
         BigInt operator*(const BigInt&) const;
         BigInt operator/(const BigInt&) const;
+        bool operator<(const BigInt&) const;
+        bool operator>(const BigInt&) const;
+        bool operator==(const BigInt&) const;
         friend std::ostream& operator<<(std::ostream& stream, const BigInt& that);
     private:
         unsigned digit;

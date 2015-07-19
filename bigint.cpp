@@ -19,8 +19,13 @@ namespace calculator {
      */
     BigInt::BigInt(const std::string& str) : value {} {
         digit = 1;
-        negative = false;
-        toValue(str);
+        if(str[0] == '-') {
+            negative = true;
+            toValue(str.substr(1));
+        } else {
+            negative = false;
+            toValue(str);
+        }
     }
 
     BigInt& BigInt::operator=(const std::string& str) {
@@ -47,7 +52,97 @@ namespace calculator {
     BigInt BigInt::operator-(const BigInt& that) const {
         BigInt difference;
         unsigned idx, borrow;
+        idx = 0;
+        borrow = 0;
+        while(idx < helper::max(digit, that.digit)) {
+            ++ idx;
+        }
         return difference;
+    }
+
+    bool BigInt::operator==(const BigInt& that) const {
+        if((negative && that.negative) || (! negative && ! that.negative)) {
+            if(digit == that.digit) {
+                int idx = digit - 1;
+                while(idx >= 0) {
+                    if(value[idx] != that.value[idx]) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    bool BigInt::operator>(const BigInt& that) const {
+        if(negative && that.negative) {
+            if(digit == that.digit) {
+                int idx = digit - 1;
+                while(idx >= 0) {
+                    if(value[idx] > that.value[idx]) {
+                        return false;
+                    } else if(value[idx] < that.value[idx]) {
+                        return true;
+                    }
+                    --idx;
+                }
+            } else if(digit < that.digit) {
+                return true;
+            }
+        } else if( ! negative && ! that.negative) {
+            if(digit == that.digit) {
+                int idx = digit - 1;
+                while(idx >= 0) {
+                    if(value[idx] < that.value[idx]) {
+                        return false;
+                    } else if(value[idx] > that.value[idx]) {
+                        return true;
+                    }
+                    --idx;
+                }
+            } else if(digit > that.digit) {
+                return true;
+            }
+        } else if( ! negative && that.negative) {
+            return true;
+        }
+        return false;
+    }
+
+    bool BigInt::operator<(const BigInt& that) const {
+        if(negative && that.negative) {
+            if(digit == that.digit) {
+                int idx = digit - 1;
+                while(idx >= 0) {
+                    if(value[idx] < that.value[idx]) {
+                        return false;
+                    } else if(value[idx] > that.value[idx]) {
+                        return true;
+                    }
+                    --idx;
+                }
+            } else if(digit > that.digit) {
+                return true;
+            }
+        } else if( ! negative && ! that.negative) {
+            if(digit == that.digit) {
+                int idx = digit - 1;
+                while(idx >= 0) {
+                    if(value[idx] > that.value[idx]) {
+                        return false;
+                    } else if(value[idx] < that.value[idx]) {
+                        return true;
+                    }
+                    --idx;
+                }
+            } else if(digit < that.digit) {
+                return true;
+            }
+        } else if(negative && ! that.negative) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -59,6 +154,7 @@ namespace calculator {
         for(idx = 0; idx < digit; ++ idx) {
             str = static_cast<char>(value[idx] + '0') + str;
         }
+        str = negative ? "-" + str : str;
         return str;
     }
 
