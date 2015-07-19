@@ -5,7 +5,12 @@
 using namespace calculator;
 
 
-int main(void) {
+void testAdd() {
+    BigInt A("1"), B("9999");
+    std::cout << (A + B).toStr() << std::endl;
+}
+
+void testCompare() {
     BigInt A("-1"), B("-1");
     std::cout << "A = " << A.toStr() << std::endl;
     std::cout << "B = " << B.toStr() << std::endl;
@@ -16,6 +21,9 @@ int main(void) {
     } else {
         std::cout << "A == B" << std::endl;
     }
-    std::cout << (A + B).toStr() << std::endl;
+}
+
+int main(void) {
+    testAdd();
     return 0;
 }

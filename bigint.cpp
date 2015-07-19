@@ -34,19 +34,26 @@ namespace calculator {
     }
 
     BigInt BigInt::operator+(const BigInt& that) const {
-        BigInt sum;
-        unsigned idx, carry;
-        carry = 0;
-        idx = 0;
-        while(idx < helper::max(digit, that.digit) || carry == 1) {
-            unsigned temp;
-            temp = value[idx] + that.value[idx] + carry;
-            sum.value[idx] = temp % 10;
-            carry = temp/10;
-            ++ idx;
-            sum.digit = idx;
+        if(negative && ! that.negative) {
+            return (that - *this);
+        } else if( ! negative && that.negative) {
+            return (*this - that);
+        } else {
+            BigInt sum;
+            unsigned idx, carry;
+            carry = 0;
+            idx = 0;
+            sum.negative = negative;
+            while(idx < helper::max(digit, that.digit) || carry == 1) {
+                unsigned temp;
+                temp = value[idx] + that.value[idx] + carry;
+                sum.value[idx] = temp % 10;
+                carry = temp/10;
+                ++ idx;
+                sum.digit = idx;
+            }
+            return sum;
         }
-        return sum;
     }
 
     BigInt BigInt::operator-(const BigInt& that) const {
@@ -61,7 +68,7 @@ namespace calculator {
     }
 
     bool BigInt::operator==(const BigInt& that) const {
-        if((negative && that.negative) || (! negative && ! that.negative)) {
+        if((negative && that.negative) || ( ! negative && ! that.negative)) {
             if(digit == that.digit) {
                 int idx = digit - 1;
                 while(idx >= 0) {
