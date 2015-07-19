@@ -118,8 +118,12 @@ namespace calculator {
                 carry = temp / 10;
             }
         }
-        while(product.value[product.digit - 1] == 0) {
-            -- product.digit;
+        if(carry > 0) {
+            product.value[product.digit - 1] = carry;
+        } else {
+            while(product.value[product.digit - 1] == 0) {
+                -- product.digit;
+            }
         }
         return product;
     }
