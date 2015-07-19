@@ -12,7 +12,7 @@ namespace calculator {
         std::string toStr() const;
 
         BigInt& operator=(const std::string&);
-        BigInt& operator=(BigInt&);
+        BigInt& operator=(const BigInt&);
         BigInt operator+(const BigInt&) const;
         BigInt operator-(const BigInt&) const;
         BigInt operator*(const BigInt&) const;

@@ -21,6 +21,16 @@ namespace calculator {
         toValue(str);
     }
 
+    BigInt& BigInt::operator=(const BigInt& that) {
+        negative = that.negative;
+        digit = that.digit;
+        unsigned idx;
+        for(idx = 0; idx < digit; ++ idx) {
+            value[idx] = that.value[idx];
+        }
+        return *this;
+    }
+
     BigInt& BigInt::operator=(const std::string& str) {
         toValue(str);
         return *this;
@@ -28,9 +38,13 @@ namespace calculator {
 
     BigInt BigInt::operator+(const BigInt& that) const {
         if(negative && ! that.negative) {
-            return (that - *this);
+            // FIXME
+            // BigInt temp = *this;
+            // temp.negative = false;
+            // return (that - temp);
         } else if( ! negative && that.negative) {
-            return (*this - that);
+            // FIXME
+            // return (*this - temp);
         } else {
             BigInt sum;
             unsigned idx, carry;
@@ -50,14 +64,11 @@ namespace calculator {
     }
 
     BigInt BigInt::operator-(const BigInt& that) const {
-        BigInt difference;
-        unsigned idx, borrow;
-        idx = 0;
-        borrow = 0;
-        while(idx < helper::max(digit, that.digit)) {
-            ++ idx;
+        if((negative && that.negative) || ( ! negative && ! that.negative)) {
+            return (*this + that);
+        } else {
+            BigInt difference;
         }
-        return difference;
     }
 
     bool BigInt::operator==(const BigInt& that) const {
