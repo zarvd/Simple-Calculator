@@ -148,7 +148,7 @@ namespace calculator {
     /**
      * Convert digit to string
      */
-    std::string BigInt::toStr() {
+    std::string BigInt::toStr() const {
         std::string str;
         unsigned idx;
         for(idx = 0; idx < digit; ++ idx) {

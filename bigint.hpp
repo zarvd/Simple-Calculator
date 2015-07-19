@@ -9,7 +9,7 @@ namespace calculator {
         const static int precision = 100;
         BigInt();
         explicit BigInt(const std::string& str);
-        std::string toStr();
+        std::string toStr() const;
 
         BigInt& operator=(const std::string&);
         BigInt& operator=(BigInt&);
