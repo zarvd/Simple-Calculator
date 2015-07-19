@@ -29,7 +29,13 @@ namespace calculator {
     }
 
     BigInt& BigInt::operator=(const std::string& str) {
-        toValue(str);
+        if(str[0] == '-') {
+            negative = true;
+            toValue(str.substr(1));
+        } else {
+            negative = false;
+            toValue(str);
+        }
         return *this;
     }
 
