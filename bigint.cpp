@@ -38,13 +38,13 @@ namespace calculator {
 
     BigInt BigInt::operator+(const BigInt& that) const {
         if(negative && ! that.negative) {
-            // FIXME
-            // BigInt temp = *this;
-            // temp.negative = false;
-            // return (that - temp);
+            BigInt temp = *this;
+            temp.negative = false;
+            return (that - temp);
         } else if( ! negative && that.negative) {
-            // FIXME
-            // return (*this - temp);
+            BigInt temp = that;
+            temp.negative = false;
+            return (*this - temp);
         } else {
             BigInt sum;
             unsigned idx, carry;
