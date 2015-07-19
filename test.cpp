@@ -8,7 +8,17 @@ using namespace calculator;
 void testAdd() {
     std::cout << "TEST Add:" << std::endl;
     BigInt A("1"), B("9999");
-    std::cout << (A + B).toStr() << std::endl;
+    std::cout << "A = " << A.toStr() << std::endl;
+    std::cout << "B = " << B.toStr() << std::endl;
+    std::cout << "A + B = " << (A + B).toStr() << std::endl;
+}
+
+void testMinus() {
+    std::cout << "TEST Minus:" << std::endl;
+    BigInt A("2"), B("1");
+    std::cout << "A = " << A.toStr() << std::endl;
+    std::cout << "B = " << B.toStr() << std::endl;
+    std::cout << "A - B = " << (A - B).toStr() << std::endl;
 }
 
 void testCompare() {
@@ -29,5 +39,6 @@ void testCompare() {
 int main(void) {
     testCompare();
     testAdd();
+    testMinus();
     return 0;
 }

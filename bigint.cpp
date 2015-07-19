@@ -9,15 +9,17 @@ namespace calculator {
     /**
      * Defualt constructor, set number to 0
      */
-    BigInt::BigInt() : value {} {
+    BigInt::BigInt() {
         digit = 1;
         negative = false;
+        std::fill(value.begin(), value.end(), 0);
     }
 
     /**
      * Constructor which getting a string of digits
      */
-    BigInt::BigInt(const std::string& str) : value {} {
+    BigInt::BigInt(const std::string& str) {
+        std::fill(value.begin(), value.end(), 0);
         toValue(str);
     }
 
@@ -28,10 +30,12 @@ namespace calculator {
         for(idx = 0; idx < digit; ++ idx) {
             value[idx] = that.value[idx];
         }
+        std::fill(value.begin() + idx, value.end(), 0);
         return *this;
     }
 
     BigInt& BigInt::operator=(const std::string& str) {
+        std::fill(value.begin(), value.end(), 0);
         toValue(str);
         return *this;
     }
@@ -48,10 +52,11 @@ namespace calculator {
         } else {
             BigInt sum;
             unsigned idx, carry;
+            const unsigned maxDigit = helper::max(digit, that.digit);
             carry = 0;
             idx = 0;
             sum.negative = negative;
-            while(idx < helper::max(digit, that.digit) || carry == 1) {
+            while(idx < maxDigit|| carry == 1) {
                 unsigned temp;
                 temp = value[idx] + that.value[idx] + carry;
                 sum.value[idx] = temp % 10;
@@ -64,10 +69,38 @@ namespace calculator {
     }
 
     BigInt BigInt::operator-(const BigInt& that) const {
-        if((negative && that.negative) || ( ! negative && ! that.negative)) {
+        if(that.negative) {
+            BigInt temp = that;
+            temp.negative = false;
             return (*this + that);
+        } else if(negative) {
+            BigInt temp = *this;
+            temp.negative = false;
+            return (that - temp);
+        } else if(*this < that) {
+            // TODO optimize
+            BigInt temp = that - *this;
+            temp.negative = true;
+            return temp;
         } else {
+            // this > that
             BigInt difference;
+            unsigned idx, borrow;
+            idx = 0;
+            borrow = 0;
+            while(idx < digit) {
+                if(value[idx]  < that.value[idx] + borrow) {
+                    difference.value[idx] = 10 + value[idx] - that.value[idx] - borrow;
+                    borrow = 1;
+                } else {
+                    difference.value[idx] = value[idx] - that.value[idx] - borrow;
+                    borrow = 0;
+                }
+                ++ idx;
+            }
+            difference.digit = difference.value[digit - 1] == 0 ?
+                digit - 1 : digit;
+            return difference;
         }
     }
 
