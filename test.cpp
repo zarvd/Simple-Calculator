@@ -14,9 +14,9 @@ void testAdd() {
     std::cout << "A + B = " << (A + B) << std::endl;
 }
 
-void testMinus() {
+void testSubtraction() {
     std::cout << "===================" << std::endl;
-    std::cout << "TEST Minus:" << std::endl;
+    std::cout << "TEST Subtraction:" << std::endl;
     BigInt A("2"), B("1");
     std::cout << "A = " << A << std::endl;
     std::cout << "B = " << B << std::endl;
@@ -31,6 +31,20 @@ void testMinus() {
     std::cout << "A = " << A << std::endl;
     std::cout << "B = " << B << std::endl;
     std::cout << "A - B = " << (A - B) << std::endl;
+}
+
+void testMultiplication() {
+    std::cout << "===================" << std::endl;
+    std::cout << "TEST Multiplication:" << std::endl;
+    BigInt A("2"), B("1");
+    std::cout << "A = " << A << std::endl;
+    std::cout << "B = " << B << std::endl;
+    std::cout << "A * B = " << A * B << std::endl;
+    A = "1000";
+    B = "10";
+    std::cout << "A = " << A << std::endl;
+    std::cout << "B = " << B << std::endl;
+    std::cout << "A * B = " << A * B << std::endl;
 }
 
 void testCompare() {
@@ -52,6 +66,7 @@ void testCompare() {
 int main(void) {
     testCompare();
     testAdd();
-    testMinus();
+    testSubtraction();
+    testMultiplication();
     return 0;
 }

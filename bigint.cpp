@@ -104,6 +104,26 @@ namespace calculator {
         }
     }
 
+    BigInt BigInt::operator*(const calculator::BigInt& that) const {
+        BigInt product;
+        product.negative = negative != that.negative;  // xor
+        product.digit = digit + that.digit;
+        unsigned iIdx, jIdx, carry;
+        carry = 0;
+        for(iIdx = 0; iIdx < digit; ++ iIdx) {
+            for(jIdx = 0; jIdx < that.digit; ++ jIdx) {
+                unsigned temp = value[iIdx] * that.value[jIdx] +
+                    product.value[iIdx + jIdx] + carry;
+                product.value[iIdx + jIdx] = temp % 10;
+                carry = temp / 10;
+            }
+        }
+        while(product.value[product.digit - 1] == 0) {
+            -- product.digit;
+        }
+        return product;
+    }
+
     bool BigInt::operator==(const BigInt& that) const {
         if((negative && that.negative) || ( ! negative && ! that.negative)) {
             if(digit == that.digit) {
