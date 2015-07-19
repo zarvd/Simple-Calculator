@@ -189,6 +189,11 @@ namespace calculator {
         return false;
     }
 
+    std::ostream& operator<<(std::ostream& stream, const BigInt& that) {
+        stream << that.toStr();
+        return stream;
+    }
+
     /**
      * Convert digit to string
      */
