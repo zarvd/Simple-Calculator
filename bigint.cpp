@@ -18,24 +18,11 @@ namespace calculator {
      * Constructor which getting a string of digits
      */
     BigInt::BigInt(const std::string& str) : value {} {
-        digit = 1;
-        if(str[0] == '-') {
-            negative = true;
-            toValue(str.substr(1));
-        } else {
-            negative = false;
-            toValue(str);
-        }
+        toValue(str);
     }
 
     BigInt& BigInt::operator=(const std::string& str) {
-        if(str[0] == '-') {
-            negative = true;
-            toValue(str.substr(1));
-        } else {
-            negative = false;
-            toValue(str);
-        }
+        toValue(str);
         return *this;
     }
 
@@ -175,8 +162,18 @@ namespace calculator {
      * Convert string to array and store the array
      */
     void BigInt::toValue(const std::string& str) {
-        unsigned idx = digit = str.size();
-        for(const char& c : str) {
+        unsigned idx;
+        std::string temp;
+        if(str[0] == '-') {
+            negative = true;
+            idx = digit = str.size() - 1;
+            temp = str.substr(1);
+        } else {
+            negative = false;
+            idx = digit = str.size();
+            temp = str;
+        }
+        for(const char& c : temp) {
             value[--idx] = c - '0';
         }
     }
