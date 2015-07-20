@@ -1,5 +1,5 @@
-#ifndef PARSER_H
-#define PARSER_H
+#ifndef HELPER_H
+#define HELPER_H
 
 #include <algorithm>
 #include <string>
@@ -34,4 +34,4 @@ namespace helper {
     }
 }
 
-#endif /* PARSER_H */
+#endif /* HELPER_H */

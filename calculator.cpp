@@ -20,7 +20,7 @@ namespace calculator {
      * Read command
      */
     void Calculator::input() {
-        std::getline(std::cin, command);
+        std::getline(std::cin, formula);
     }
 
     /**
@@ -34,9 +34,6 @@ namespace calculator {
      * Parse command
      */
     void Calculator::parse() {
-        helper::removeAllSpace(command);
-        if( ! helper::isAllDigit(command)) {
-            isExit = true;
-        }
+        helper::removeAllSpace(formula);
     }
 }
