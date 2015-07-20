@@ -16,7 +16,7 @@ namespace helper {
     /**
      * Check if all character of string are decimal digit
      */
-    inline bool isAllDigit(std::string& str) {
+    inline bool isAllDigit(const std::string& str) {
         for(char c : str) {
             if( ! isdigit(c)) {
                 return false;
@@ -25,11 +25,11 @@ namespace helper {
         return true;
     }
 
-    inline unsigned max(unsigned x, unsigned y) {
+    inline unsigned max(const unsigned& x, const unsigned& y) {
         return x > y ? x : y;
     }
 
-    inline unsigned min(unsigned x, unsigned y) {
+    inline unsigned min(const unsigned& x, const unsigned& y) {
         return x < y ? x : y;
     }
 }
