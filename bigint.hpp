@@ -8,7 +8,9 @@ namespace calculator {
     struct BigInt {
         const static unsigned short precision = 100;
         BigInt();
-        explicit BigInt(const std::string& str);
+        explicit BigInt(const std::string&);
+        explicit BigInt(const int&);
+        BigInt(const BigInt&, const unsigned&, const unsigned&);
         std::string toStr() const;
 
         BigInt& operator=(const std::string&);

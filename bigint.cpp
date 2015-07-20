@@ -15,12 +15,35 @@ namespace calculator {
         std::fill(value.begin(), value.end(), 0);
     }
 
+    BigInt::BigInt(const int& x) {
+        std::fill(value.begin(), value.end(), 0);
+        digit = 1;
+        negative = x < 0;
+        int tmp = x;
+        while(tmp > 0) {
+            value[digit - 1] = tmp % 10;
+            tmp /= 10;
+            if(tmp > 0)
+                ++ digit;
+        }
+    }
+
     /**
      * Constructor which getting a string of digits
      */
     BigInt::BigInt(const std::string& str) {
         std::fill(value.begin(), value.end(), 0);
         toValue(str);
+    }
+
+    BigInt::BigInt(const BigInt& that, const unsigned& begin, const unsigned& end) {
+        std::fill(value.begin(), value.end(), 0);
+        negative = false;
+        digit = end - begin;
+        unsigned iIdx, jIdx;
+        for(iIdx = 0, jIdx = begin; iIdx < digit; ++ iIdx, ++ jIdx) {
+            value[iIdx] = that.value[jIdx];
+        }
     }
 
     BigInt& BigInt::operator=(const BigInt& that) {
@@ -56,7 +79,7 @@ namespace calculator {
             carry = 0;
             idx = 0;
             sum.negative = negative;
-            while(idx < maxDigit|| carry == 1) {
+            while(idx < maxDigit || carry == 1) {
                 unsigned tmp;
                 tmp = value[idx] + that.value[idx] + carry;
                 sum.value[idx] = tmp % 10;
@@ -121,7 +144,7 @@ namespace calculator {
         if(carry > 0) {
             product.value[product.digit - 1] = carry;
         } else {
-            while(product.value[product.digit - 1] == 0) {
+            while(product.value[product.digit - 1] == 0 && product.digit > 1) {
                 -- product.digit;
             }
         }
@@ -129,9 +152,25 @@ namespace calculator {
     }
 
     BigInt BigInt::operator/(const BigInt& that) const {
-        BigInt quotient;
         if(*this < that) {
-            return quotient;
+            return BigInt();
+        }
+        BigInt quotient, carry;
+        short idx;
+        for(idx = digit - that.digit; idx >= 0; -- idx) {
+            BigInt dividend(*this, idx, idx + that.digit);
+            dividend = dividend + (carry * BigInt(10));
+            short divisor = 9;
+            while(BigInt(divisor) * that > dividend && divisor > 0) {
+                -- divisor;
+            }
+            quotient.value[idx] = divisor;
+            carry = dividend - BigInt(divisor) * that;
+        }
+        if(quotient.value[digit - that.digit] == 0) {
+            quotient.digit = digit - that.digit;
+        } else {
+            quotient.digit = digit - that.digit + 1;
         }
         return quotient;
     }

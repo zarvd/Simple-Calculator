@@ -6,6 +6,15 @@
 using namespace calculator;
 
 
+void testConstructor() {
+    BigInt A(10), B(1234), C(B, 2, 4), D;
+    D = BigInt() * A;
+    std::cout << "A = " << A << std::endl;
+    std::cout << "B = " << B << std::endl;
+    std::cout << "C = " << C << std::endl;
+    std::cout << "D = " << D << std::endl;
+}
+
 void testAdd() {
     std::cout << "===================" << std::endl;
     std::cout << "TEST Add:" << std::endl;
@@ -72,6 +81,12 @@ void testDivision() {
     std::cout << "B = " << B << std::endl;
     std::cout << "A / B = " << A / B << std::endl;
     assert(A / B == BigInt("111"));
+    A = "1234";
+    B = "9";
+    std::cout << "A = " << A << std::endl;
+    std::cout << "B = " << B << std::endl;
+    std::cout << "A / B = " << A / B << std::endl;
+    assert(A / B == BigInt("137"));
 }
 
 void testCompare() {
@@ -93,12 +108,12 @@ void testCompare() {
     assert(A != C);
     std::cout << A << " != " << C << std::endl;
 }
-
 int main(void) {
-    testCompare();
-    testAdd();
-    testSubtraction();
-    testMultiplication();
+    // testCompare();
+    // testAdd();
+    // testSubtraction();
+    // testMultiplication();
     testDivision();
+    // testConstructor();
     return 0;
 }
