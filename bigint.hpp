@@ -6,7 +6,7 @@
 
 namespace calculator {
     struct BigInt {
-        const static int precision = 100;
+        const static unsigned short precision = 100;
         BigInt();
         explicit BigInt(const std::string& str);
         std::string toStr() const;
@@ -22,10 +22,11 @@ namespace calculator {
         bool operator==(const BigInt&) const;
         friend std::ostream& operator<<(std::ostream& stream, const BigInt& that);
     private:
-        unsigned digit;
+        unsigned short digit;
         bool negative;
-        std::array<unsigned, precision> value;
+        std::array<unsigned short, precision> value;
         void toValue(const std::string&);
+        BigInt dividedN10(const unsigned& n) const;
     };
 }
 

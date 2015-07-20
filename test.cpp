@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <cassert>
 #include "calculator.hpp"
 
 using namespace calculator;
@@ -57,6 +58,22 @@ void testMultiplication() {
     std::cout << "A * B = " << A * B << std::endl;
 }
 
+void testDivision() {
+    std::cout << "===================" << std::endl;
+    std::cout << "TEST Division:" << std::endl;
+    BigInt A("10"), B("1");
+    std::cout << "A = " << A << std::endl;
+    std::cout << "B = " << B << std::endl;
+    std::cout << "A / B = " << A / B << std::endl;
+    assert(A / B == BigInt("10"));
+    A = "999";
+    B = "9";
+    std::cout << "A = " << A << std::endl;
+    std::cout << "B = " << B << std::endl;
+    std::cout << "A / B = " << A / B << std::endl;
+    assert(A / B == BigInt("111"));
+}
+
 void testCompare() {
     std::cout << "===================" << std::endl;
     std::cout << "TEST Compare:" << std::endl;
@@ -78,5 +95,6 @@ int main(void) {
     testAdd();
     testSubtraction();
     testMultiplication();
+    testDivision();
     return 0;
 }

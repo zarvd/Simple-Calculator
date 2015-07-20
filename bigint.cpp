@@ -104,7 +104,7 @@ namespace calculator {
         }
     }
 
-    BigInt BigInt::operator*(const calculator::BigInt& that) const {
+    BigInt BigInt::operator*(const BigInt& that) const {
         BigInt product;
         product.negative = negative != that.negative;  // xor
         product.digit = digit + that.digit;
@@ -126,6 +126,14 @@ namespace calculator {
             }
         }
         return product;
+    }
+
+    BigInt BigInt::operator/(const BigInt& that) const {
+        BigInt quotient;
+        if(*this < that) {
+            return quotient;
+        }
+        return quotient;
     }
 
     bool BigInt::operator==(const BigInt& that) const {
