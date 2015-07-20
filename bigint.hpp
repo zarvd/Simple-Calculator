@@ -19,6 +19,9 @@ namespace calculator {
         BigInt operator/(const BigInt&) const;
         bool operator<(const BigInt&) const;
         bool operator>(const BigInt&) const;
+        bool operator<=(const BigInt&) const;
+        bool operator>=(const BigInt&) const;
+        bool operator!=(const BigInt&) const;
         bool operator==(const BigInt&) const;
         friend std::ostream& operator<<(std::ostream& stream, const BigInt& that);
     private:
@@ -26,7 +29,6 @@ namespace calculator {
         bool negative;
         std::array<unsigned short, precision> value;
         void toValue(const std::string&);
-        BigInt dividedN10(const unsigned& n) const;
     };
 }
 

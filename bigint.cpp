@@ -42,13 +42,13 @@ namespace calculator {
 
     BigInt BigInt::operator+(const BigInt& that) const {
         if(negative && ! that.negative) {
-            BigInt temp = *this;
-            temp.negative = false;
-            return (that - temp);
+            BigInt tmp = *this;
+            tmp.negative = false;
+            return (that - tmp);
         } else if( ! negative && that.negative) {
-            BigInt temp = that;
-            temp.negative = false;
-            return (*this - temp);
+            BigInt tmp = that;
+            tmp.negative = false;
+            return (*this - tmp);
         } else {
             BigInt sum;
             unsigned idx, carry;
@@ -57,10 +57,10 @@ namespace calculator {
             idx = 0;
             sum.negative = negative;
             while(idx < maxDigit|| carry == 1) {
-                unsigned temp;
-                temp = value[idx] + that.value[idx] + carry;
-                sum.value[idx] = temp % 10;
-                carry = temp/10;
+                unsigned tmp;
+                tmp = value[idx] + that.value[idx] + carry;
+                sum.value[idx] = tmp % 10;
+                carry = tmp/10;
                 ++ idx;
                 sum.digit = idx;
             }
@@ -70,18 +70,18 @@ namespace calculator {
 
     BigInt BigInt::operator-(const BigInt& that) const {
         if(that.negative) {
-            BigInt temp = that;
-            temp.negative = false;
+            BigInt tmp = that;
+            tmp.negative = false;
             return (*this + that);
         } else if(negative) {
-            BigInt temp = *this;
-            temp.negative = false;
-            return (that - temp);
+            BigInt tmp = *this;
+            tmp.negative = false;
+            return (that - tmp);
         } else if(*this < that) {
             // TODO optimize
-            BigInt temp = that - *this;
-            temp.negative = true;
-            return temp;
+            BigInt tmp = that - *this;
+            tmp.negative = true;
+            return tmp;
         } else {
             // this > that
             BigInt difference;
@@ -112,10 +112,10 @@ namespace calculator {
         carry = 0;
         for(iIdx = 0; iIdx < digit; ++ iIdx) {
             for(jIdx = 0; jIdx < that.digit; ++ jIdx) {
-                unsigned temp = value[iIdx] * that.value[jIdx] +
+                unsigned tmp = value[iIdx] * that.value[jIdx] +
                     product.value[iIdx + jIdx] + carry;
-                product.value[iIdx + jIdx] = temp % 10;
-                carry = temp / 10;
+                product.value[iIdx + jIdx] = tmp % 10;
+                carry = tmp / 10;
             }
         }
         if(carry > 0) {
@@ -134,21 +134,6 @@ namespace calculator {
             return quotient;
         }
         return quotient;
-    }
-
-    bool BigInt::operator==(const BigInt& that) const {
-        if((negative && that.negative) || ( ! negative && ! that.negative)) {
-            if(digit == that.digit) {
-                int idx = digit - 1;
-                while(idx >= 0) {
-                    if(value[idx] != that.value[idx]) {
-                        return false;
-                    }
-                }
-                return true;
-            }
-        }
-        return false;
     }
 
     bool BigInt::operator>(const BigInt& that) const {
@@ -187,38 +172,23 @@ namespace calculator {
     }
 
     bool BigInt::operator<(const BigInt& that) const {
-        if(negative && that.negative) {
-            if(digit == that.digit) {
-                int idx = digit - 1;
-                while(idx >= 0) {
-                    if(value[idx] < that.value[idx]) {
-                        return false;
-                    } else if(value[idx] > that.value[idx]) {
-                        return true;
-                    }
-                    --idx;
-                }
-            } else if(digit > that.digit) {
-                return true;
-            }
-        } else if( ! negative && ! that.negative) {
-            if(digit == that.digit) {
-                int idx = digit - 1;
-                while(idx >= 0) {
-                    if(value[idx] > that.value[idx]) {
-                        return false;
-                    } else if(value[idx] < that.value[idx]) {
-                        return true;
-                    }
-                    --idx;
-                }
-            } else if(digit < that.digit) {
-                return true;
-            }
-        } else if(negative && ! that.negative) {
-            return true;
-        }
-        return false;
+        return that > *this;
+    }
+
+    bool BigInt::operator>=(const BigInt& that) const {
+        return ! (that > *this);
+    }
+
+    bool BigInt::operator<=(const BigInt& that) const {
+        return ! (*this > that);
+    }
+
+    bool BigInt::operator!=(const BigInt& that) const {
+        return (*this > that) || (that > *this);
+    }
+
+    bool BigInt::operator==(const BigInt& that) const {
+        return ! (*this != that);
     }
 
     std::ostream& operator<<(std::ostream& stream, const BigInt& that) {
@@ -244,17 +214,17 @@ namespace calculator {
      */
     void BigInt::toValue(const std::string& str) {
         unsigned idx;
-        std::string temp;
+        std::string tmp;
         if(str[0] == '-') {
             negative = true;
             idx = digit = str.size() - 1;
-            temp = str.substr(1);
+            tmp = str.substr(1);
         } else {
             negative = false;
             idx = digit = str.size();
-            temp = str;
+            tmp = str;
         }
-        for(const char& c : temp) {
+        for(const char& c : tmp) {
             value[--idx] = c - '0';
         }
     }

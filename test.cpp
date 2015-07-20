@@ -65,7 +65,7 @@ void testDivision() {
     std::cout << "A = " << A << std::endl;
     std::cout << "B = " << B << std::endl;
     std::cout << "A / B = " << A / B << std::endl;
-    assert(A / B == BigInt("10"));
+    assert((A / B) == BigInt("10"));
     A = "999";
     B = "9";
     std::cout << "A = " << A << std::endl;
@@ -77,17 +77,21 @@ void testDivision() {
 void testCompare() {
     std::cout << "===================" << std::endl;
     std::cout << "TEST Compare:" << std::endl;
-    BigInt A("-1"), B("-1");
-    A = "5";
-    std::cout << "A = " << A << std::endl;
-    std::cout << "B = " << B << std::endl;
-    if(A > B) {
-        std::cout << "A > B" << std::endl;
-    } else if(A < B) {
-        std::cout << "A < B" << std::endl;
-    } else {
-        std::cout << "A == B" << std::endl;
-    }
+    BigInt A("-1"), B("-1"), C("1");
+    assert(A == B);
+    std::cout << A << " == " << B << std::endl;
+    assert(A >= B);
+    std::cout << A << " >= " << B << std::endl;
+    assert(A < C);
+    std::cout << A << " < " << C << std::endl;
+    assert(A <= C);
+    std::cout << A << " <= " << C << std::endl;
+    assert(C >= A);
+    std::cout << C << " >= " << A << std::endl;
+    assert(C > A);
+    std::cout << C << " > " << A << std::endl;
+    assert(A != C);
+    std::cout << A << " != " << C << std::endl;
 }
 
 int main(void) {
