@@ -14,7 +14,7 @@ enum Symbol {
     close
 };
 
-std::map<char, Symbol> op = {
+const std::map<char, Symbol> op = {
     {'+', plus},
     {'-', minus},
     {'*', multiple},
@@ -56,7 +56,7 @@ bool helper::isValidExpr(const std::string& expr) {
             nextSym[digit] = nextSym[plus] = nextSym[minus] = nextSym[multiple] = nextSym[divide] = nextSym[close] = true;
             nextSym[open] = false;
         } else if(isOperator(sym)) {
-            if( ! nextSym[op[sym]]) return false;
+            if( ! nextSym[op.at(sym)]) return false;
             nextSym[digit] = nextSym[open] = true;
             nextSym[plus] = nextSym[minus] = nextSym[multiple] = nextSym[divide] = nextSym[close] = false;
         } else if( ! isspace(sym)) {
