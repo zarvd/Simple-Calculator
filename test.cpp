@@ -2,6 +2,7 @@
 #include <string>
 #include <cassert>
 #include "calculator.hpp"
+#include "helper.hpp"
 
 using namespace calculator;
 
@@ -108,12 +109,22 @@ void testCompare() {
     assert(A != C);
     std::cout << A << " != " << C << std::endl;
 }
+
+void testValidExpr() {
+    std::cout << "===================" << std::endl;
+    std::cout << "TEST Valid Expression:" << std::endl;
+    assert(helper::isValidExpr("(1 + 2 * 4)"));
+    assert( ! helper::isValidExpr("(1 + 2 * 4"));
+    assert( ! helper::isValidExpr("(1 + 2 * 4)()"));
+}
+
 int main(void) {
     // testCompare();
     // testAdd();
     // testSubtraction();
     // testMultiplication();
-    testDivision();
+    // testDivision();
     // testConstructor();
+    testValidExpr();
     return 0;
 }

@@ -10,7 +10,7 @@ namespace calculator {
     class Calculator final {
     private:
         BigInt result;
-        std::string formula;
+        std::string expression;
         bool isExit = false;
         void input();
         void parse();
