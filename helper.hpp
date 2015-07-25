@@ -42,8 +42,6 @@ namespace helper {
             return false;
         }
     }
-
-    bool isValidExpr(const std::string& expr);
 }
 
 #endif /* HELPER_H */
