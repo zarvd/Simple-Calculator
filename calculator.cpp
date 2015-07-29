@@ -50,6 +50,9 @@ namespace calculator {
         }
     }
 
+    /**
+     * Find operators's precedence and insert parenthese
+     */
     void Calculator::setPrecedence(std::string& expr) const {
         const std::vector<char> highPreOps{'*', '/'};
         const std::vector<char> lowPreOps{'+', '-'};
@@ -57,9 +60,6 @@ namespace calculator {
         findPrecedence(expr, lowPreOps);
     }
 
-    /**
-     * Find operators's precedence and insert parenthese
-     */
     void Calculator::findPrecedence(std::string& expr, const std::vector<char>& ops) const {
         unsigned short opPos;
         opPos = helper::findChars(expr, ops);
