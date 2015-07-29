@@ -35,7 +35,7 @@ namespace calculator {
     /**
      * Output result
      */
-    void Calculator::printResult() {
+    void Calculator::printResult() const {
         std::cout << "Result: " << result.toStr() << std::endl;
     }
 
@@ -50,13 +50,19 @@ namespace calculator {
         }
     }
 
+    void Calculator::setPrecedence(std::string& expr) const {
+        const std::vector<char> highPreOps{'*', '/'};
+        const std::vector<char> lowPreOps{'+', '-'};
+        findPrecedence(expr, highPreOps);
+        findPrecedence(expr, lowPreOps);
+    }
+
     /**
      * Find operators's precedence and insert parenthese
      */
-    void Calculator::findPrecedence(std::string& expr) {
-        const std::vector<char> highPrecedenceOps{'*', '/'};
+    void Calculator::findPrecedence(std::string& expr, const std::vector<char>& ops) const {
         unsigned short opPos;
-        opPos = helper::findChars(expr, highPrecedenceOps);
+        opPos = helper::findChars(expr, ops);
         while(opPos < expr.length()) {
             unsigned short begIdx, endIdx, parentheseCount;
             begIdx = opPos - 1;
@@ -86,10 +92,8 @@ namespace calculator {
                 }
                 ++ endIdx;
             }
-
             expr.insert(endIdx, ")");
-
-            opPos = helper::findChars(expr, highPrecedenceOps, opPos + 1);
+            opPos = helper::findChars(expr, ops, opPos + 1);
         }
     }
 

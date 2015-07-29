@@ -1,6 +1,7 @@
 #ifndef CALCULATOR_H
 #define CALCULATOR_H
 
+#include <vector>
 #include <string>
 #include <map>
 #include "bigint.hpp"
@@ -31,8 +32,9 @@ namespace calculator {
         ~Calculator() = default;
         void init();
         static bool isValidExpr(const std::string&);
-        void findPrecedence(std::string& expr);
-        void printResult();
+        void setPrecedence(std::string&) const;
+        void findPrecedence(std::string&, const std::vector<char>&) const;
+        void printResult() const;
     };
 }
 
