@@ -128,10 +128,19 @@ void testOpPrecedence() {
     std::cout << "==================="
               << "TEST Operator Precedence:"
               << std::endl;
-    std::string t1 = "123*456";
+    std::string t1 = "123*456", t2 = "123*456/789", t3 = "(1+2)*3",
+        t4 = "1+2*3", t5 = "1*(2+3)";
     Calculator calc;
     calc.findPrecedence(t1);
-    std::cout << t1 << std::endl;
+    calc.findPrecedence(t2);
+    calc.findPrecedence(t3);
+    calc.findPrecedence(t4);
+    calc.findPrecedence(t5);
+    std::cout << t1 << std::endl
+              << t2 << std::endl
+              << t3 << std::endl
+              << t4 << std::endl
+              << t5 << std::endl;
 }
 
 int main(void) {

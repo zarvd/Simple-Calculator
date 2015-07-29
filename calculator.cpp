@@ -61,7 +61,7 @@ namespace calculator {
             unsigned short begIdx, endIdx, parentheseCount;
             begIdx = opPos - 1;
             parentheseCount = 0;
-            while(begIdx > 0 && (parentheseCount > 0 || isdigit(expr[begIdx]))) {
+            while(begIdx > 0 && (parentheseCount > 0 || isdigit(expr[begIdx]) || expr[begIdx] == ')')) {
                 if(expr[begIdx] == ')') {
                     ++ parentheseCount;
                 } else if(expr[begIdx] == '(') {
@@ -78,7 +78,7 @@ namespace calculator {
 
             endIdx = opPos + 2;
             parentheseCount = 0;
-            while(endIdx < expr.length() && (parentheseCount > 0 || isdigit(expr[endIdx]))) {
+            while(endIdx < expr.length() && (parentheseCount > 0 || isdigit(expr[endIdx]) || expr[endIdx] == '(')) {
                 if(expr[endIdx] == '(') {
                     ++ parentheseCount;
                 } else if(expr[endIdx] == ')') {
