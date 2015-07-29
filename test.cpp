@@ -10,15 +10,16 @@ using namespace calculator;
 void testConstructor() {
     BigInt A(10), B(1234), C(B, 2, 4), D;
     D = BigInt() * A;
-    std::cout << "A = " << A << std::endl;
-    std::cout << "B = " << B << std::endl;
-    std::cout << "C = " << C << std::endl;
-    std::cout << "D = " << D << std::endl;
+    std::cout << "A = " << A << std::endl
+              << "B = " << B << std::endl
+              << "C = " << C << std::endl
+              << "D = " << D << std::endl;
 }
 
 void testAdd() {
-    std::cout << "===================" << std::endl;
-    std::cout << "TEST Add:" << std::endl;
+    std::cout << "==================="
+              << "TEST Addition:"
+              << std::endl;
     BigInt A("1"), B("9999");
     std::cout << "A = " << A << std::endl;
     std::cout << "B = " << B << std::endl;
@@ -26,8 +27,9 @@ void testAdd() {
 }
 
 void testSubtraction() {
-    std::cout << "===================" << std::endl;
-    std::cout << "TEST Subtraction:" << std::endl;
+    std::cout << "==================="
+              << "TEST Subtraction:"
+              << std::endl;
     BigInt A("2"), B("1");
     std::cout << "A = " << A << std::endl;
     std::cout << "B = " << B << std::endl;
@@ -45,8 +47,9 @@ void testSubtraction() {
 }
 
 void testMultiplication() {
-    std::cout << "===================" << std::endl;
-    std::cout << "TEST Multiplication:" << std::endl;
+    std::cout << "==================="
+              << "TEST Multiplication:"
+              << std::endl;
     BigInt A("2"), B("1");
     std::cout << "A = " << A << std::endl;
     std::cout << "B = " << B << std::endl;
@@ -69,8 +72,9 @@ void testMultiplication() {
 }
 
 void testDivision() {
-    std::cout << "===================" << std::endl;
-    std::cout << "TEST Division:" << std::endl;
+    std::cout << "==================="
+              << "TEST Division:"
+              << std::endl;
     BigInt A("10"), B("1");
     std::cout << "A = " << A << std::endl;
     std::cout << "B = " << B << std::endl;
@@ -91,8 +95,9 @@ void testDivision() {
 }
 
 void testCompare() {
-    std::cout << "===================" << std::endl;
-    std::cout << "TEST Compare:" << std::endl;
+    std::cout << "==================="
+              << "TEST Compare:"
+              << std::endl;
     BigInt A("-1"), B("-1"), C("1");
     assert(A == B);
     std::cout << A << " == " << B << std::endl;
@@ -111,11 +116,22 @@ void testCompare() {
 }
 
 void testValidExpr() {
-    std::cout << "===================" << std::endl;
-    std::cout << "TEST Valid Expression:" << std::endl;
+    std::cout << "==================="
+              << "TEST Valid Expression:"
+              << std::endl;
     assert(Calculator::isValidExpr("(1 + 2 * 4)"));
     assert( ! Calculator::isValidExpr("(1 + 2 * 4"));
     assert( ! Calculator::isValidExpr("(1 + 2 * 4)()"));
+}
+
+void testOpPrecedence() {
+    std::cout << "==================="
+              << "TEST Operator Precedence:"
+              << std::endl;
+    std::string t1 = "123*456";
+    Calculator calc;
+    calc.findPrecedence(t1);
+    std::cout << t1 << std::endl;
 }
 
 int main(void) {
@@ -125,6 +141,7 @@ int main(void) {
     // testMultiplication();
     // testDivision();
     // testConstructor();
-    testValidExpr();
+    // testValidExpr();
+    testOpPrecedence();
     return 0;
 }

@@ -25,11 +25,13 @@ namespace calculator {
             open,
             close
         };
+        static const std::map<char, Symbol> op;
         Calculator() = default;
-        Calculator(const Calculator&) = delete;  // disable default coping constructor
+        Calculator(const Calculator&) = delete;
         ~Calculator() = default;
         void init();
         static bool isValidExpr(const std::string&);
+        void findPrecedence(std::string& expr);
         void printResult();
     };
 }

@@ -42,6 +42,18 @@ namespace helper {
             return false;
         }
     }
+
+    inline unsigned findChars(const std::string& str, const std::vector<char>& cs, const unsigned& pos = -1) {
+        unsigned short idx;
+        for(idx = pos + 1; idx < str.length(); ++ idx) {
+            for(const char& c : cs) {
+                if(str[idx] == c) {
+                    return idx;
+                }
+            }
+        }
+        return str.length();  // return str's length when c dose not exist in str
+    }
 }
 
 #endif /* HELPER_H */
