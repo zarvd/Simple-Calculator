@@ -1,8 +1,8 @@
 #include "calculator.hpp"
 #include "helper.hpp"
-
 #include <iostream>
 #include <vector>
+
 
 namespace calculator {
 
@@ -95,6 +95,57 @@ namespace calculator {
             expr.insert(endIdx, ")");
             opPos = helper::findChars(expr, ops, opPos + 1);
         }
+    }
+
+    std::unique_ptr<ExprTree> Calculator::getExprTree(const std::string& expr) const {
+        std::unique_ptr<ExprTree> tree;
+        unsigned short begPos, parentheseCount;
+        parentheseCount = 0;
+        begPos = 0;
+        while(begPos < expr.length()) {
+            const char curChar = expr[begPos];
+            if(curChar != '(' && curChar != ')') {
+                unsigned short endPos = begPos;
+                while(endPos < expr.length() && expr[endPos] != ')') {
+                    ++ endPos;
+                }
+                std::string word;
+                word = expr.substr(begPos, endPos);
+                if(word.find("(") != std::string::npos) {
+                    tree = getExprTree(word);
+                } else {
+                    BigInt first, second;
+                    Symbol opSym = plus;
+                    unsigned short idx, opPos;
+                    opPos = 0;
+                    for(idx = 0; idx < word.length(); ++ idx) {
+                        const char& c = word[idx];
+                        if( ! isdigit(c)) {
+                            opPos = idx;
+                            opSym = op.at(c);
+                        }
+                    }
+                    if(opPos == 0) {
+                        if(word[0] == '-') {
+                            second = word;
+                        } else {
+                            first = word;
+                        }
+                    } else {
+                        first = word.substr(0, opPos);
+                        second = word.substr(opPos + 1);
+                    }
+                }
+            } else {
+                if(curChar == '(') {
+                    ++ parentheseCount;
+                } else if(curChar == ')') {
+                    -- parentheseCount;
+                }
+                ++ begPos;
+            }
+        }
+        return tree;
     }
 
     /**

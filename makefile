@@ -16,17 +16,20 @@ bigint.o:
 calculator.o: helper.o bigint.o
 	$(CC) $(FLAG) -c calculator.cpp
 
-main.o: helper.o bigint.o calculator.o
+exprtree.o: bigint.o
+	$(CC) $(FLAG) -c exprtree.cpp
+
+main.o: helper.o bigint.o calculator.o exprtree.o
 	$(CC) $(FLAG) -c main.cpp
 
 main: helper.o bigint.o calculator.o main.o
-	$(CC) $(FLAG) helper.o bigint.o calculator.o main.o -lm -O0 -o $(MAIN)
+	$(CC) $(FLAG) exprtree.o helper.o bigint.o calculator.o main.o -lm -O0 -o $(MAIN)
 
-test.o: helper.o bigint.o calculator.o
+test.o: helper.o bigint.o calculator.o exprtree.o
 	$(CC) $(FLAG) -c test.cpp
 
 test: helper.o bigint.o calculator.o test.o
-	$(CC) $(FLAG) helper.o bigint.o calculator.o test.o -lm -O0 -o $(TEST)
+	$(CC) $(FLAG) exprtree.o helper.o bigint.o calculator.o test.o -lm -O0 -o $(TEST)
 
 clean:
 	rm *.o $(MAIN) $(TEST)

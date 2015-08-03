@@ -4,7 +4,9 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <memory>
 #include "bigint.hpp"
+#include "exprtree.hpp"
 
 
 namespace calculator {
@@ -16,6 +18,7 @@ namespace calculator {
         bool isExit = false;
         void input();
         void parse();
+
     public:
         enum Symbol {
             digit,
@@ -27,6 +30,7 @@ namespace calculator {
             close
         };
         static const std::map<char, Symbol> op;
+
         Calculator() = default;
         Calculator(const Calculator&) = delete;
         ~Calculator() = default;
@@ -34,6 +38,7 @@ namespace calculator {
         static bool isValidExpr(const std::string&);
         void setPrecedence(std::string&) const;
         void findPrecedence(std::string&, const std::vector<char>&) const;
+        std::unique_ptr<ExprTree> getExprTree(const std::string&) const;
         void printResult() const;
     };
 }
