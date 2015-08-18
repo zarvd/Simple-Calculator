@@ -3,7 +3,6 @@
 
 #include <vector>
 #include <string>
-#include <map>
 #include <memory>
 #include "bigint.hpp"
 #include "exprtree.hpp"
@@ -20,25 +19,16 @@ namespace calculator {
         void parse();
 
     public:
-        enum Symbol {
-            digit,
-            plus,
-            minus,
-            multiple,
-            divide,
-            open,
-            close
-        };
-        static const std::map<char, Symbol> op;
-
         Calculator() = default;
         Calculator(const Calculator&) = delete;
         ~Calculator() = default;
         void init();
         static bool isValidExpr(const std::string&);
         void setPrecedence(std::string&) const;
-        void findPrecedence(std::string&, const std::vector<char>&) const;
-        std::unique_ptr<ExprTree> getExprTree(const std::string&) const;
+        void insertBracket(std::string&, const std::vector<char>&) const;
+        BigInt calculate(std::shared_ptr<ExprNode>) const;
+        std::shared_ptr<ExprNode> getExprTree(const std::string&) const;
+        std::string removeBracket(const std::string&) const;
         void printResult() const;
     };
 }
