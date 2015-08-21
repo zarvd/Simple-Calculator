@@ -22,6 +22,7 @@ namespace calculator {
      */
     void Calculator::input() {
         std::getline(std::cin, expression);
+        helper::removeAllSpace(expression);
     }
 
     /**

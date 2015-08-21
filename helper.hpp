@@ -12,7 +12,8 @@ namespace helper {
      * Remove all whitespace from std::string
      */
     inline void removeAllSpace(std::string& str) {
-        remove_if(str.begin(), str.end(), isspace);
+        str.erase(remove_if(str.begin(), str.end(), isspace),
+                  str.end());
     }
 
     /**
