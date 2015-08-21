@@ -152,7 +152,9 @@ namespace calculator {
     }
 
     BigInt BigInt::operator/(const BigInt& that) const {
-        if(*this < that) {
+        if(that == BigInt(0)) {
+            return BigInt(0);
+        } else if(*this < that) {
             return BigInt();
         }
         BigInt quotient, carry;
