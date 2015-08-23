@@ -140,6 +140,10 @@ namespace calculator {
                 product.value[iIdx + jIdx] = tmp % 10;
                 carry = tmp / 10;
             }
+            if(carry != 0) {
+                product.value[iIdx + that.digit] += carry;
+                carry = 0;
+            }
         }
         if(carry > 0) {
             product.value[product.digit - 1] = carry;

@@ -50,25 +50,15 @@ void testMultiplication() {
     std::cout << "==================="
               << "TEST Multiplication:"
               << std::endl;
-    BigInt A("2"), B("1");
-    std::cout << "A = " << A << std::endl;
-    std::cout << "B = " << B << std::endl;
-    std::cout << "A * B = " << A * B << std::endl;
-    A = "1000";
-    B = "1";
-    std::cout << "A = " << A << std::endl;
-    std::cout << "B = " << B << std::endl;
-    std::cout << "A * B = " << A * B << std::endl;
-    A = "9999";
-    B = "9";
-    std::cout << "A = " << A << std::endl;
-    std::cout << "B = " << B << std::endl;
-    std::cout << "A * B = " << A * B << std::endl;
-    A = "-9999";
-    B = "9";
-    std::cout << "A = " << A << std::endl;
-    std::cout << "B = " << B << std::endl;
-    std::cout << "A * B = " << A * B << std::endl;
+    BigInt A, B;
+    for(unsigned i = 0; i < 100; ++ i) {
+        A = std::to_string(i);
+        for(unsigned j = 0; j < 300; ++ j) {
+            B = std::to_string(j);
+            assert((A*B).toStr() == std::to_string(i * j));
+        }
+    }
+
 }
 
 void testDivision() {
@@ -224,7 +214,7 @@ int main(void) {
     // testCompare();
     // testAdd();
     // testSubtraction();
-    // testMultiplication();
+    testMultiplication();
     // testDivision();
     // testConstructor();
     // testValidExpr();
@@ -232,6 +222,6 @@ int main(void) {
     // testFindChildExpr();
     // testRemoveBracket();
     // testGetExprTree();
-    testCalculate();
+    // testCalculate();
     return 0;
 }

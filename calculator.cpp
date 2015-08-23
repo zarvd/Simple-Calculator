@@ -56,7 +56,7 @@ namespace calculator {
     }
 
     void Calculator::insertBracket(std::string& expr, const std::vector<char>& ops) const {
-        unsigned short opPos;
+        unsigned short opPos;  // position of operator in the expression
         opPos = helper::findChars(expr, ops);
         while(opPos < expr.length()) {
             unsigned short begIdx, endIdx, bracketCount;
@@ -243,5 +243,4 @@ namespace calculator {
         if(bracketCount > 0) return false;
         return true;
     }
-
 }

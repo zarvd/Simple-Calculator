@@ -15,6 +15,7 @@ namespace calculator {
 
         BigInt& operator=(const std::string&);
         BigInt& operator=(const BigInt&);
+        BigInt& operator++();
         BigInt operator+(const BigInt&) const;
         BigInt operator-(const BigInt&) const;
         BigInt operator*(const BigInt&) const;

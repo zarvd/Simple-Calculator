@@ -1,5 +1,5 @@
 CC=clang++
-FLAG=-Wall -std=c++11 -g
+FLAG=-Wall -std=c++11 -g -O2
 MAIN=main
 TEST=test
 
@@ -23,13 +23,13 @@ main.o: helper.o bigint.o calculator.o exprtree.o
 	$(CC) $(FLAG) -c main.cpp
 
 main: helper.o bigint.o calculator.o main.o
-	$(CC) $(FLAG) exprtree.o helper.o bigint.o calculator.o main.o -lm -O0 -o $(MAIN)
+	$(CC) $(FLAG) exprtree.o helper.o bigint.o calculator.o main.o -lm -o $(MAIN)
 
 test.o: helper.o bigint.o calculator.o exprtree.o
 	$(CC) $(FLAG) -c test.cpp
 
 test: helper.o bigint.o calculator.o test.o
-	$(CC) $(FLAG) exprtree.o helper.o bigint.o calculator.o test.o -lm -O0 -o $(TEST)
+	$(CC) $(FLAG) exprtree.o helper.o bigint.o calculator.o test.o -lm -o $(TEST)
 
 clean:
 	rm *.o $(MAIN) $(TEST)
