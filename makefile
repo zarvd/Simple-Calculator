@@ -1,5 +1,5 @@
 CC=clang++
-FLAG=-Wall -std=c++11 -g -O2
+FLAG=-Wall -std=c++11 -g -O0
 MAIN=main
 TEST=test
 

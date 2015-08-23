@@ -44,9 +44,9 @@ namespace helper {
         }
     }
 
-    inline unsigned findChars(const std::string& str, const std::vector<char>& cs, const unsigned& pos = -1) {
+    inline unsigned findChars(const std::string& str, const std::vector<char>& cs, const unsigned& pos = 0) {
         unsigned short idx;
-        for(idx = pos + 1; idx < str.length(); ++ idx) {
+        for(idx = pos; idx < str.length(); ++ idx) {
             for(const char& c : cs) {
                 if(str[idx] == c) {
                     return idx;

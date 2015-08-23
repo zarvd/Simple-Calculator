@@ -55,14 +55,27 @@ namespace calculator {
         insertBracket(expr, lowPreOps);
     }
 
+    unsigned short Calculator::findOpPos(const std::string& expr, const std::vector<char>& ops, unsigned beg) const {
+        unsigned short opPos = helper::findChars(expr, ops, beg);
+        while(expr[opPos] == '-') {
+            if(opPos == 0 || expr[opPos - 1] == '(') {
+                opPos = helper::findChars(expr, ops, opPos + 1);
+            } else {
+                break;
+            }
+        }
+        return opPos;
+    }
+
+
     void Calculator::insertBracket(std::string& expr, const std::vector<char>& ops) const {
         unsigned short opPos;  // position of operator in the expression
-        opPos = helper::findChars(expr, ops);
+        opPos = findOpPos(expr, ops, 0);
         while(opPos < expr.length()) {
             unsigned short begIdx, endIdx, bracketCount;
             begIdx = opPos - 1;
             bracketCount = 0;
-            while(begIdx > 0 && (bracketCount > 0 || isdigit(expr[begIdx]) || expr[begIdx] == ')')) {
+            while(begIdx > 0 && (bracketCount > 0 || isdigit(expr[begIdx]) || expr[begIdx] == ')' || expr[begIdx] == '-')) {
                 if(expr[begIdx] == ')') {
                     ++ bracketCount;
                 } else if(expr[begIdx] == '(') {
@@ -88,7 +101,7 @@ namespace calculator {
                 ++ endIdx;
             }
             expr.insert(endIdx, ")");
-            opPos = helper::findChars(expr, ops, opPos + 1);
+            opPos = findOpPos(expr, ops, opPos + 2);
         }
     }
 

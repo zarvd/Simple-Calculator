@@ -120,6 +120,10 @@ void testValidExpr() {
     assert(Calculator::isValidExpr("(1 + 2 * 4)"));
     assert( ! Calculator::isValidExpr("(1 + 2 * 4"));
     assert( ! Calculator::isValidExpr("(1 + 2 * 4)()"));
+    assert(Calculator::isValidExpr("-100"));
+    assert(Calculator::isValidExpr("-100-(-100)"));
+    assert(Calculator::isValidExpr("-100-(-100 - 100)"));
+    assert( ! Calculator::isValidExpr("-100--100"));
 }
 
 void testOpPrecedence() {
@@ -133,22 +137,28 @@ void testOpPrecedence() {
         t4 = "1+2*3",
         t5 = "1*(2+3)",
         t6 = "1+2*3-4",
-        t7 = "1";
+        t7 = "1",
+        t8 = "-100",
+        t9 = "-100-(-100)";
     Calculator calc;
     calc.setPrecedence(t1);
+    assert(t1 == "(123*456)");
     calc.setPrecedence(t2);
+    assert(t2 == "((123*456)/789)");
     calc.setPrecedence(t3);
+    assert(t3 == "(((1+2))*3)");
     calc.setPrecedence(t4);
+    assert(t4 == "(1+(2*3))");
     calc.setPrecedence(t5);
+    assert(t5 == "(1*((2+3)))");
     calc.setPrecedence(t6);
+    assert(t6 == "((1+(2*3))-4)");
     calc.setPrecedence(t7);
-    std::cout << t1 << std::endl
-              << t2 << std::endl
-              << t3 << std::endl
-              << t4 << std::endl
-              << t5 << std::endl
-              << t6 << std::endl
-              << t7 << std::endl;
+    assert(t7 == "1");
+    calc.setPrecedence(t8);
+    assert(t8 == "-100");
+    calc.setPrecedence(t9);
+    assert(t9 == "(-100-(-100))");
 }
 
 void testFindChildExpr() {
@@ -220,13 +230,13 @@ void testCalculate() {
 
 int main(void) {
     // testCompare();
-    testAdd();
-    testSubtraction();
-    testMultiplication();
-    testDivision();
+    // testAdd();
+    // testSubtraction();
+    // testMultiplication();
+    // testDivision();
     // testConstructor();
     // testValidExpr();
-    // testOpPrecedence();
+    testOpPrecedence();
     // testFindChildExpr();
     // testRemoveBracket();
     // testGetExprTree();
