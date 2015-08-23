@@ -20,30 +20,38 @@ void testAdd() {
     std::cout << "==================="
               << "TEST Addition:"
               << std::endl;
-    BigInt A("1"), B("9999");
-    std::cout << "A = " << A << std::endl;
-    std::cout << "B = " << B << std::endl;
-    std::cout << "A + B = " << (A + B) << std::endl;
+    BigInt A, B;
+    for(unsigned i = 0; i < 100; ++ i) {
+        A = std::to_string(i);
+        for(unsigned j = 0; j < 300; ++ j) {
+            B = std::to_string(j);
+            assert(A + B == B + A);
+            assert((A + B).toStr() == std::to_string(i + j));
+        }
+    }
 }
 
 void testSubtraction() {
     std::cout << "==================="
               << "TEST Subtraction:"
               << std::endl;
-    BigInt A("2"), B("1");
-    std::cout << "A = " << A << std::endl;
-    std::cout << "B = " << B << std::endl;
-    std::cout << "A - B = " << (A - B) << std::endl;
-    A = "1";
-    B = "2";
-    std::cout << "A = " << A << std::endl;
-    std::cout << "B = " << B << std::endl;
-    std::cout << "A - B = " << (A - B) << std::endl;
-    A = "100000";
-    B = "1";
-    std::cout << "A = " << A << std::endl;
-    std::cout << "B = " << B << std::endl;
-    std::cout << "A - B = " << (A - B) << std::endl;
+    BigInt A, B;
+    for(unsigned i = 0; i < 100; ++ i) {
+        A = std::to_string(i);
+        for(unsigned j = 0; j < 300; ++ j) {
+            B = std::to_string(j);
+            BigInt sum = A + B;
+            // if(sum - A != B || sum - B != A) {
+            //     std::cout << "sum: " << sum << std::endl
+            //               << "A: " << A << std::endl
+            //               << "B: " << B << std::endl
+            //               << "sum - A: " << sum - A << std::endl
+            //               << "sum - B: " << sum - B << std::endl;
+            // }
+            assert(sum - A == B);
+            assert(sum - B == A);
+        }
+    }
 }
 
 void testMultiplication() {
@@ -212,8 +220,8 @@ void testCalculate() {
 
 int main(void) {
     // testCompare();
-    // testAdd();
-    // testSubtraction();
+    testAdd();
+    testSubtraction();
     testMultiplication();
     testDivision();
     // testConstructor();

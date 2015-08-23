@@ -105,6 +105,8 @@ namespace calculator {
             BigInt tmp = that - *this;
             tmp.negative = true;
             return tmp;
+        } else if(*this == that) {
+            return BigInt();
         } else {
             // this > that
             BigInt difference;
@@ -121,8 +123,10 @@ namespace calculator {
                 }
                 ++ idx;
             }
-            difference.digit = difference.value[digit - 1] == 0 ?
-                digit - 1 : digit;
+            difference.digit = digit;
+            while(difference.value[difference.digit - 1] == 0 && difference.digit > 1) {
+                -- difference.digit;
+            }
             return difference;
         }
     }
