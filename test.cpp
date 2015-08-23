@@ -21,9 +21,9 @@ void testAdd() {
               << "TEST Addition:"
               << std::endl;
     BigInt A, B;
-    for(unsigned i = 0; i < 100; ++ i) {
+    for(int i = -100; i < 100; ++ i) {
         A = std::to_string(i);
-        for(unsigned j = 0; j < 300; ++ j) {
+        for(int j = -300; j < 300; ++ j) {
             B = std::to_string(j);
             assert(A + B == B + A);
             assert((A + B).toStr() == std::to_string(i + j));
@@ -36,18 +36,18 @@ void testSubtraction() {
               << "TEST Subtraction:"
               << std::endl;
     BigInt A, B;
-    for(unsigned i = 0; i < 100; ++ i) {
+    for(int i = -100; i < 100; ++ i) {
         A = std::to_string(i);
-        for(unsigned j = 0; j < 300; ++ j) {
+        for(int j = -300; j < 300; ++ j) {
             B = std::to_string(j);
             BigInt sum = A + B;
-            // if(sum - A != B || sum - B != A) {
-            //     std::cout << "sum: " << sum << std::endl
-            //               << "A: " << A << std::endl
-            //               << "B: " << B << std::endl
-            //               << "sum - A: " << sum - A << std::endl
-            //               << "sum - B: " << sum - B << std::endl;
-            // }
+            if(sum - A != B || sum - B != A) {
+                std::cout << "sum: " << sum << std::endl
+                          << "A: " << A << std::endl
+                          << "B: " << B << std::endl
+                          << "sum - A: " << sum - A << std::endl
+                          << "sum - B: " << sum - B << std::endl;
+            }
             assert(sum - A == B);
             assert(sum - B == A);
         }
@@ -59,9 +59,9 @@ void testMultiplication() {
               << "TEST Multiplication:"
               << std::endl;
     BigInt A, B;
-    for(unsigned i = 0; i < 100; ++ i) {
+    for(int i = -100; i < 100; ++ i) {
         A = std::to_string(i);
-        for(unsigned j = 0; j < 300; ++ j) {
+        for(int j = -300; j < 300; ++ j) {
             B = std::to_string(j);
             assert((A*B).toStr() == std::to_string(i * j));
         }
@@ -74,9 +74,9 @@ void testDivision() {
               << "TEST Division:"
               << std::endl;
     BigInt A, B;
-    for(unsigned i = 1; i <= 100; ++ i) {
+    for(int i = -100; i <= 100; ++ i) {
         A = std::to_string(i);
-        for(unsigned j = 1; j <= 300; ++ j) {
+        for(int j = -300; j <= 300; ++ j) {
             B = std::to_string(j);
             BigInt product = A*B;
             if(product/A != B || product/B != A) {
