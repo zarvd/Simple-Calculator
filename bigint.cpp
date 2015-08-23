@@ -161,11 +161,14 @@ namespace calculator {
         } else if(*this < that) {
             return BigInt();
         }
-        BigInt quotient, carry;
+        BigInt quotient, carry, dividend;
         short idx;
         for(idx = digit - that.digit; idx >= 0; -- idx) {
-            BigInt dividend(*this, idx, idx + that.digit);
-            dividend = dividend + (carry * BigInt(10));
+            if(idx == digit - that.digit) {
+                dividend = BigInt(*this, idx, idx + that.digit);
+            } else {
+                dividend = BigInt(*this, idx, idx + 1) + (carry * BigInt(10));
+            }
             short divisor = 9;
             while(BigInt(divisor) * that > dividend && divisor > 0) {
                 -- divisor;

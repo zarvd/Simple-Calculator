@@ -65,23 +65,23 @@ void testDivision() {
     std::cout << "==================="
               << "TEST Division:"
               << std::endl;
-    BigInt A("10"), B("1");
-    std::cout << "A = " << A << std::endl;
-    std::cout << "B = " << B << std::endl;
-    std::cout << "A / B = " << A / B << std::endl;
-    assert((A / B) == BigInt("10"));
-    A = "999";
-    B = "9";
-    std::cout << "A = " << A << std::endl;
-    std::cout << "B = " << B << std::endl;
-    std::cout << "A / B = " << A / B << std::endl;
-    assert(A / B == BigInt("111"));
-    A = "1234";
-    B = "9";
-    std::cout << "A = " << A << std::endl;
-    std::cout << "B = " << B << std::endl;
-    std::cout << "A / B = " << A / B << std::endl;
-    assert(A / B == BigInt("137"));
+    BigInt A, B;
+    for(unsigned i = 1; i <= 100; ++ i) {
+        A = std::to_string(i);
+        for(unsigned j = 1; j <= 300; ++ j) {
+            B = std::to_string(j);
+            BigInt product = A*B;
+            if(product/A != B || product/B != A) {
+                std::cout << "A: " << A << std::endl
+                          << "B: " << B << std::endl
+                          << "Product: " << product << std::endl
+                          << "Product/A: " << product/A << std::endl
+                          << "Product/B: " << product/B << std::endl;
+            }
+            assert(product/A == B);
+            assert(product/B == A);
+        }
+    }
 }
 
 void testCompare() {
@@ -155,7 +155,7 @@ void testFindChildExpr() {
     // unsigned idx = calc.findChildExpr(c, 0);
     // std::cout << idx << " : " << c[idx] << std::endl;
     // std::cout << c.substr(1, idx - 1) << "   &&&   "
-              // << c.substr(idx + 1) << std::endl;
+    // << c.substr(idx + 1) << std::endl;
 }
 
 void testRemoveBracket() {
@@ -215,7 +215,7 @@ int main(void) {
     // testAdd();
     // testSubtraction();
     testMultiplication();
-    // testDivision();
+    testDivision();
     // testConstructor();
     // testValidExpr();
     // testOpPrecedence();
