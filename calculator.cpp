@@ -40,6 +40,7 @@ namespace calculator {
         if( ! isValidExpr(expression)) {
             throw "Invalid expression";
         } else {
+            setPrecedence(expression);
             std::shared_ptr<ExprNode> head = getExprTree(expression);
             result = calculate(head);
         }
@@ -152,7 +153,7 @@ namespace calculator {
         for(unsigned idx = 0; idx < expr.length(); ++ idx) {
             const char& curChar = expr[idx];
 
-            if( ! isdigit(expr[idx])) {
+            if( ! isdigit(expr[idx]) && idx != 0 && expr[idx - 1] != '(') {
                 isNumber = false;
             }
 
@@ -162,14 +163,13 @@ namespace calculator {
                 -- bracketCount;
             }
 
-            if(bracketCount == 0 && isOperator(curChar)) {
+            if(bracketCount == 0 && isOperator(curChar) && idx != 0) {
                 head = std::shared_ptr<ExprNode>(new ExprNode(curChar));
                 head->lChild = getExprTree(expr.substr(0, idx));
                 head->rChild = getExprTree(expr.substr(idx + 1));
                 break;
             }
         }
-
         if(isNumber) {
             head = std::shared_ptr<ExprNode>(new ExprNode(expr));
         }

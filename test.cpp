@@ -63,6 +63,12 @@ void testMultiplication() {
         A = std::to_string(i);
         for(int j = -300; j < 300; ++ j) {
             B = std::to_string(j);
+            if((A*B).toStr() != std::to_string(i * j)) {
+                std::cout << A << std::endl;
+                std::cout << B << std::endl;
+                std::cout << A*B << std::endl;
+                std::cout << i*j << std::endl;
+            }
             assert((A*B).toStr() == std::to_string(i * j));
         }
     }
@@ -75,8 +81,10 @@ void testDivision() {
               << std::endl;
     BigInt A, B;
     for(int i = -100; i <= 100; ++ i) {
+        if(i == 0) continue;
         A = std::to_string(i);
         for(int j = -300; j <= 300; ++ j) {
+            if(j == 0) continue;
             B = std::to_string(j);
             BigInt product = A*B;
             if(product/A != B || product/B != A) {
@@ -159,6 +167,9 @@ void testOpPrecedence() {
     assert(t8 == "-100");
     calc.setPrecedence(t9);
     assert(t9 == "(-100-(-100))");
+    t9 = "(-20)/(-5)";
+    calc.setPrecedence(t9);
+    assert(t9 == "((-20)/(-5))");
 }
 
 void testFindChildExpr() {
@@ -207,12 +218,12 @@ void testGetExprTree() {
 
     Calculator calc;
 
-    std::string expr = "1+(2*3)";
+    std::string expr = "(-20)/(-5)";
     std::shared_ptr<ExprNode> head = calc.getExprTree(expr);
 
+    std::cout << head->symValue << std::endl;
     std::cout << head->lChild->numValue << std::endl;
-    std::cout << head->rChild->lChild->numValue << std::endl;
-    std::cout << head->rChild->rChild->numValue << std::endl;
+    std::cout << head->rChild->numValue << std::endl;
 }
 
 void testCalculate() {
@@ -230,13 +241,13 @@ void testCalculate() {
 
 int main(void) {
     // testCompare();
-    // testAdd();
-    // testSubtraction();
-    // testMultiplication();
-    // testDivision();
+    testAdd();
+    testSubtraction();
+    testMultiplication();
+    testDivision();
     // testConstructor();
     // testValidExpr();
-    testOpPrecedence();
+    // testOpPrecedence();
     // testFindChildExpr();
     // testRemoveBracket();
     // testGetExprTree();

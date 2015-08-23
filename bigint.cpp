@@ -95,11 +95,13 @@ namespace calculator {
         if(that.negative) {
             BigInt tmp = that;
             tmp.negative = false;
-            return (*this + that);
+            return (*this + tmp);
         } else if(negative) {
             BigInt tmp = *this;
             tmp.negative = false;
-            return (that - tmp);
+            BigInt result = (that + tmp);
+            result.negative = true;
+            return result;
         } else if(*this < that) {
             // TODO optimize
             BigInt tmp = that - *this;
@@ -156,13 +158,17 @@ namespace calculator {
                 -- product.digit;
             }
         }
+        if(product.digit == 1 && product.value[0] == 0) {
+            product.negative = false;
+        }
         return product;
     }
 
     BigInt BigInt::operator/(const BigInt& that) const {
-        if(that == BigInt(0)) {
-            return BigInt(0);
-        } else if(*this < that) {
+        if(that == BigInt() || *this == BigInt()) {
+            return BigInt();
+        } else if((*this < that && ! negative && ! that.negative) ||
+                  (*this > that && negative && that.negative)) {
             return BigInt();
         }
         BigInt quotient, carry, dividend;
@@ -174,17 +180,23 @@ namespace calculator {
                 dividend = BigInt(*this, idx, idx + 1) + (carry * BigInt(10));
             }
             short divisor = 9;
-            while(BigInt(divisor) * that > dividend && divisor > 0) {
+            BigInt tmp;
+            tmp = BigInt(divisor) * that;
+            tmp.negative = false;
+            while(tmp > dividend && divisor > 0) {
                 -- divisor;
+                tmp = BigInt(divisor) * that;
+                tmp.negative = false;
             }
             quotient.value[idx] = divisor;
-            carry = dividend - BigInt(divisor) * that;
+            carry = dividend - tmp;
         }
         if(quotient.value[digit - that.digit] == 0) {
             quotient.digit = digit - that.digit;
         } else {
             quotient.digit = digit - that.digit + 1;
         }
+        quotient.negative = negative ^ that.negative;
         return quotient;
     }
 
