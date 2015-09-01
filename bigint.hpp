@@ -5,13 +5,22 @@
 #include <array>
 
 namespace calculator {
-    struct BigInt {
-        const static unsigned short precision = 100;
+    const unsigned short IntPrecision = 100;
+
+    class BigInt final {
+        unsigned short digit;
+        bool negative;
+        std::array<unsigned short, IntPrecision> value;
+        void toValue(const std::string&);
+
+    public:
         BigInt();
         explicit BigInt(const std::string&);
         explicit BigInt(const int&);
         BigInt(const BigInt&, const unsigned&, const unsigned&);
-        std::string toStr() const;
+        ~BigInt() = default;
+
+        std::string toString() const;
 
         BigInt& operator=(const std::string&);
         BigInt& operator=(const BigInt&);
@@ -26,12 +35,7 @@ namespace calculator {
         bool operator>=(const BigInt&) const;
         bool operator!=(const BigInt&) const;
         bool operator==(const BigInt&) const;
-        friend std::ostream& operator<<(std::ostream& stream, const BigInt& that);
-    private:
-        unsigned short digit;
-        bool negative;
-        std::array<unsigned short, precision> value;
-        void toValue(const std::string&);
+    friend std::ostream& operator<<(std::ostream& stream, const BigInt& that);
     };
 }
 

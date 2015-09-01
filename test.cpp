@@ -26,7 +26,7 @@ void testAdd() {
         for(int j = -300; j < 300; ++ j) {
             B = std::to_string(j);
             assert(A + B == B + A);
-            assert((A + B).toStr() == std::to_string(i + j));
+            assert((A + B).toString() == std::to_string(i + j));
         }
     }
 }
@@ -63,13 +63,13 @@ void testMultiplication() {
         A = std::to_string(i);
         for(int j = -300; j < 300; ++ j) {
             B = std::to_string(j);
-            if((A*B).toStr() != std::to_string(i * j)) {
+            if((A*B).toString() != std::to_string(i * j)) {
                 std::cout << A << std::endl;
                 std::cout << B << std::endl;
                 std::cout << A*B << std::endl;
                 std::cout << i*j << std::endl;
             }
-            assert((A*B).toStr() == std::to_string(i * j));
+            assert((A*B).toString() == std::to_string(i * j));
         }
     }
 

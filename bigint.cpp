@@ -255,15 +255,15 @@ namespace calculator {
         return ! (*this != that);
     }
 
-    std::ostream& operator<<(std::ostream& stream, const BigInt& that) {
-        stream << that.toStr();
+    inline std::ostream& operator<<(std::ostream& stream, const BigInt& that) {
+        stream << that.toString();
         return stream;
     }
 
     /**
      * Convert digit to string
      */
-    std::string BigInt::toStr() const {
+    std::string BigInt::toString() const {
         std::string str;
         unsigned idx;
         for(idx = 0; idx < digit; ++ idx) {

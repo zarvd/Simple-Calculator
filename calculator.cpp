@@ -29,7 +29,7 @@ namespace calculator {
      * Output result
      */
     void Calculator::printResult() const {
-        std::cout << "Result: " << result.toStr() << std::endl;
+        std::cout << "Result: " << result << std::endl;
     }
 
     /**
