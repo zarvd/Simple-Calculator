@@ -145,12 +145,12 @@ namespace calculator {
     std::shared_ptr<ExprNode> Calculator::getExprTree(const std::string& oExpr) const {
         std::shared_ptr<ExprNode> head = nullptr;
 
-        unsigned bracketCount = 0;
+        unsigned short bracketCount = 0;
         bool isNumber = true;
 
         std::string expr = removeBracket(oExpr);
 
-        for(unsigned idx = 0; idx < expr.length(); ++ idx) {
+        for(unsigned short idx = 0; idx < expr.length(); ++ idx) {
             const char& curChar = expr[idx];
 
             if( ! isdigit(expr[idx]) && idx != 0 && expr[idx - 1] != '(') {
@@ -170,6 +170,7 @@ namespace calculator {
                 break;
             }
         }
+
         if(isNumber) {
             head = std::shared_ptr<ExprNode>(new ExprNode(expr));
         }
@@ -181,11 +182,11 @@ namespace calculator {
      * Remove redundant brackets
      */
     std::string Calculator::removeBracket(const std::string& expr) const {
-        unsigned bracketCount = 0;
+        unsigned short bracketCount = 0;
         std::string childExpr = expr;
         bool isExit = false;
         while( ! isExit) {
-            for(unsigned idx = 0; idx < childExpr.length(); ++ idx) {
+            for(unsigned short idx = 0; idx < childExpr.length(); ++ idx) {
                 const char& curChar = childExpr[idx];
                 if(curChar == '(') {
                     ++ bracketCount;
@@ -215,7 +216,6 @@ namespace calculator {
      * Check if expression is valid
      */
     bool Calculator::isValidExpr(const std::string& expr) {
-        unsigned short idx;
         unsigned short bracketCount = 0;
         std::map<Symbol, bool> nextSym = {
             {Symbol::Digit, true},
@@ -226,7 +226,8 @@ namespace calculator {
             {Symbol::OpenBracket, true},
             {Symbol::CloseBracket, false}
         };
-        for(idx = 0; idx < expr.size(); ++ idx) {
+
+        for(unsigned short idx = 0; idx < expr.size(); ++ idx) {
             const char& sym = expr[idx];
             if(sym == '(') {
                 if( ! nextSym[Symbol::OpenBracket]) return false;

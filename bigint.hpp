@@ -35,7 +35,7 @@ namespace calculator {
         bool operator>=(const BigInt&) const;
         bool operator!=(const BigInt&) const;
         bool operator==(const BigInt&) const;
-    friend std::ostream& operator<<(std::ostream& stream, const BigInt& that);
+        friend std::ostream& operator<<(std::ostream& stream, const BigInt& that);
     };
 }
 

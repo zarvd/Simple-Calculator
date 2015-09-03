@@ -44,11 +44,14 @@ namespace calculator {
         return OpCharSet.find(op) != OpCharSet.end();
     }
 
-    struct ExprNode {
+    class ExprNode {
+    public:
         ExprNode() = delete;
         explicit ExprNode(const std::string&);
         explicit ExprNode(const char&);
         explicit ExprNode(const Symbol&);
+        ~ExprNode() = default;
+
         const bool isNumber;
         const BigInt numValue;
         const Symbol symValue;
